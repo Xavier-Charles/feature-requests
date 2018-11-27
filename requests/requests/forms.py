@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+
 from wtforms import StringField, PasswordField,IntegerField,\
             SubmitField, BooleanField, FileField, TextAreaField, SelectField
 from wtforms.fields.html5 import DateField
@@ -20,16 +21,22 @@ class ClientForm(FlaskForm):
 def client_query():
     return Clients.query
 
+def get_pk(obj):
+    return str(obj)
+
 class RequestForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=5, max=255)])
     description = TextAreaField('Description', validators=[DataRequired()])
-    product_area = SelectField('Product area', choices=('Policies', 'Billing', 'Claims', 'Reports'),\
+    product_area = SelectField('Product area', choices=(('P','Policies'), ('B','Billing'), ('C','Claims'), ('R','Reports')),\
             validators=[DataRequired()])
+
     target_date = DateField('Target Date',validators=[DataRequired()], format="%Y-%m-%d")
     files = FileField('Files')
     client_priority = SelectField('Priority', choices=(('a','A_level'),\
             ('b','B_level'),('c','C_level'),('d','D_level')), validators=[DataRequired()])
-    client = QuerySelectField(label='Clients', query_factory=client_query, allow_blank=True)
+
+    client = QuerySelectField(label='Clients', query_factory=client_query,\
+            get_pk=get_pk, allow_blank=True, validators=[DataRequired()])
     submit = SubmitField('Add request')
 
     def validate_requests(self, username):

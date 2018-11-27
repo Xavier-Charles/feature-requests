@@ -25,7 +25,7 @@ class Clients(db.Model):
     requests = db.relationship('Requests', backref='client', lazy=True)
 
     def __repr__(self):
-        return f"Clients('{self.name}')"
+        return f"{self.name}"
 
 class Requests(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,10 +33,10 @@ class Requests(db.Model):
     description = db.Column(db.Text, nullable=False)
     client_priority = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    target_date = db.Column(db.DateTime, nullable= False)
-    files = db.Column(db.String(20), nullable=True)
+    target_date = db.Column(db.Text, nullable= False)
+    files = db.Column(db.String(200), nullable=True)
     product_area = db.Column(db.String(100), nullable=False)
-    client_id = db.Column(db.Integer, db.ForeignKey('clients.id'), nullable=False)
+    client_name = db.Column(db.String, db.ForeignKey('clients.name'), nullable=False)
 
     def __repr__(self):
         return f"Requests('{self.title}', '{self.date_posted}')"

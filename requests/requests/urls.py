@@ -22,6 +22,7 @@ def login():
 def clients():
     form = ClientForm()
     client_list =Clients.query.all()
+
     if form.validate_on_submit():
         client = Clients(name=form.name.data, location=form.location.data)
         db.session.add(client)
@@ -31,12 +32,26 @@ def clients():
     return render_template('clients.html', forms=form, clients=client_list, title='Clients')
 
 
-@app.route("/clients/<int:client_id>")
+@app.route("/clients/<int:client_id>", methods=['GET', 'POST'])
 def requests(client_id):
     form = RequestForm()
     #  requests=client_requests, add this when done with the form
-    return render_template('requests.html', forms=form, title='Feature Requests')
+    if form.validate_on_submit():
+        client = Requests(
+                title=form.title.data,
+                description=form.description.data,
+                client_priority=form.client_priority.data,
+                target_date=form.target_date.data,
+                files=form.files.data,
+                product_area=form.product_area.data,
+                client_name=form.client.data
+                )
 
+        db.session.add(client)
+        db.session.commit()
+        flash(f'{client.name} has been added!', 'success')
+        return redirect(url_for('clients'))
+    return render_template('requests.html', forms=form, title='Feature Requests')
 
 @app.route("/your-requests")
 def your_requests():

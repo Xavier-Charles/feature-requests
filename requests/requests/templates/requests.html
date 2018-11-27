@@ -46,13 +46,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <select class="form-control" id="form-spacing" required>
-                  <option value="">Choose the product area</option>
-                  <option value="{{ forms.product_area.Policies }}">Policies</option>
-                  <option value="{{ forms.product_area.Billing }}">Billing</option>
-                  <option value="{{ forms.product_area.Claims }}">Claims</option>
-                  <option value="{{ forms.product_area.Reports }}">Reports</option>
-                </select>
+                {{ forms.product_area(class="form-control form-control-lg", id="form-spacing") }}
             {% endif %}
         </div> 
         
@@ -89,9 +83,9 @@
 
         <div class="md-form mx-4">
             <i class="fa fa-address-card prefix"></i>
-            <label for='{{ forms.files.label }}'></label>
+            <label for='{{ forms.files.label }}'>Files if any:</label>
             {% if forms.files.errors %}
-                {{ forms.files(class="form-control form-control-lg is-invalid") }}
+                {{ forms.files(class="form-control form-control-lg is-invalid", id="form-spacing") }}
                 <div class="invalid-feedback">
                     {% for error in forms.files.errors %}
                         <span>{{ error }}</span>
@@ -104,21 +98,21 @@
 
         <div class="md-form mx-4">
             <i class="fa fa-address-card prefix"></i>
-            <label for='{{ forms.client.label }}'></label>
+            <label for='{{ forms.client.label }}'>Client</label>
             {% if forms.client.errors %}
-                {{ forms.client(class="form-control form-control-lg is-invalid") }}
+                {{ forms.client(class="form-control form-control-lg is-invalid", id="form-spacing") }}
                 <div class="invalid-feedback">
                     {% for error in forms.client.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                {{ forms.client(class="form-control form-control-lg") }}
+                {{ forms.client(class="form-control form-control-lg", id="form-spacing") }}
             {% endif %}
         </div>        
 
         <div class="text-center">
-            {{ forms.submit(class="btn btn-deep-purple btn-sm fa fa-paper-plane-o") }}
+            {{ forms.submit(class="btn btn-deep-purple btn-sm") }}
         </div>
     </form>
 {% endblock content %}
