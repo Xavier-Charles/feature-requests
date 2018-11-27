@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    <!--Form without header-->
+
+    <div class="card">
+        <div class="card-block">
+
+            <!--Header-->
+            <div class="text-center">
+                <h3><i class="fa fa-lock"></i> Log In</h3>
+                <hr class="mt-2 mb-2">
+            </div>
+
+            <!--Body-->
+            <form method="POST" action="">
+                {{ forms.hidden_tag() }}
+                <div class="md-form mx-4">
+                    <i class="fa fa-envelope prefix mr-2"></i>
+                    <label for='{{ forms.email.label }}'>Email</label>
+                        {% if forms.email.errors %}
+                            {{ forms.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in forms.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ forms.email(class="form-control form-control-lg") }}
+                        {% endif %}
+                </div>
+
+                <div class="md-form mx-4">
+                    <i class="fa fa-lock prefix"></i>
+                    <label for='{{ forms.password.label }}'>Your password</label>
+                    {% if forms.password.errors %}
+                        {{ forms.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in forms.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ forms.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- <div class="text-center">
+                    <label class= "btn btn-deep-purple" for='{{ forms.submit.label }}'>Login</label>
+                </div> -->
+                <div class="text-center font-weight-bold">
+                    {{ forms.submit(class="btn btn-deep-purple btn-sm") }}
+                </div>
+            </form>
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer">
+            <div class="options">
+                <p>Use this Email to test it out: <strong>admin@britecore.com</strong></p>
+                <p>Password: <strong>keyword</strong></p>
+            </div>
+        </div>
+    </div>
+    <!--/Form without header-->
+{% endblock content %}
+
+

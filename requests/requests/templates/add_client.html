@@ -1,0 +1,40 @@
+
+    <form method="POST" action="">
+        {{ forms.hidden_tag() }}
+        <div class="md-form mx-4">
+            <i class="fa fa-envelope prefix mr-2"></i>
+            <label for='{{ forms.name.label }}'>Client name</label>
+                {% if forms.name.errors %}
+                    {{ forms.name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in forms.name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ forms.name(class="form-control form-control-lg") }}
+                {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-lock prefix"></i>
+            <label for='{{ forms.location.label }}'>Address</label>
+            {% if forms.location.errors %}
+                {{ forms.location(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.location.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.location(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <!-- <div class="text-center">
+            <label class= "btn btn-deep-purple" for='{{ forms.submit.label }}'>Login</label>
+        </div> -->
+        <div class="text-center font-weight-bold">
+            {{ forms.submit(class="btn btn-deep-purple btn-sm") }}
+        </div>
+    </form>

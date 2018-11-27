@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{ title }}</h2>
+
+    <h2>Add a new Request</h2> 
+    <form method="POST" action="">
+        {{ forms.hidden_tag() }}
+        <div class="md-form mx-4">
+            <i class="fa fa-circle prefix mr-2"></i>
+            <label for='{{ forms.title.label }}'>Title</label>
+                {% if forms.title.errors %}
+                    {{ forms.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in forms.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ forms.title(class="form-control form-control-lg") }}
+                {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-tags prefix"></i>
+            <label for='{{ forms.description.label }}'>Description</label>
+            {% if forms.description.errors %}
+                {{ forms.description(class="form-control form-control-lg is-invalid" ) }}
+                <div class="invalid-feedback ">
+                    {% for error in forms.description.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.description(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-address-card prefix"></i>
+            <label for='{{ forms.product_area.label }}'>Product Area</label>
+            {% if forms.product_area.errors %}
+                {{ forms.product_area(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.product_area.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <select class="form-control" id="form-spacing" required>
+                  <option value="">Choose the product area</option>
+                  <option value="{{ forms.product_area.Policies }}">Policies</option>
+                  <option value="{{ forms.product_area.Billing }}">Billing</option>
+                  <option value="{{ forms.product_area.Claims }}">Claims</option>
+                  <option value="{{ forms.product_area.Reports }}">Reports</option>
+                </select>
+            {% endif %}
+        </div> 
+        
+      
+        <div class="md-form mx-4">
+            <i class="fa fa-address-card prefix"></i>
+            <label for='{{ forms.target_date.label }}'>Target Date</label>
+            {% if forms.target_date.errors %}
+                {{ forms.target_date(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.target_date.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.target_date(class="form-control form-control-lg", id="form-spacing") }}
+            {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-address-card prefix"></i>
+            <label for='{{ forms.client_priority.label }}'>Client Priority</label>
+            {% if forms.client_priority.errors %}
+                {{ forms.client_priority(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.client_priority.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.client_priority(class="form-control form-control-lg", id="form-spacing") }}
+            {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-address-card prefix"></i>
+            <label for='{{ forms.files.label }}'></label>
+            {% if forms.files.errors %}
+                {{ forms.files(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.files.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.files(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <div class="md-form mx-4">
+            <i class="fa fa-address-card prefix"></i>
+            <label for='{{ forms.client.label }}'></label>
+            {% if forms.client.errors %}
+                {{ forms.client(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in forms.client.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ forms.client(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>        
+
+        <div class="text-center">
+            {{ forms.submit(class="btn btn-deep-purple btn-sm fa fa-paper-plane-o") }}
+        </div>
+    </form>
+{% endblock content %}
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock %}          
+
+
+
