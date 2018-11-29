@@ -1,19 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
-  <h2>All Clients</h2>
-    {% for client in clients %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">logo here </a>
-              <small class="text-muted">{{ client.date_added.strftime('%Y-%m-%d') }}</small>
-            </div>
-            <h2><a class="article-title" href="{{ url_for('requests', client_id=client.id) }}">{{ client.name }}</a></h2>
-            <p class="article-content">{{ client.location }}</p>
-          </div>
-        </article>
-        <br>
-    {% endfor %}
+    {% if clients %}
+        <h2>All Clients</h2>
+            {% for client in clients %}
+                <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                    <a class="mr-2" href="#">logo here </a>
+                    <small class="text-muted">{{ client.date_added.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('requests', client_id=client.id) }}">{{ client.name }}</a></h2>
+                    <p class="article-content">{{ client.location }}</p>
+                    {% if client.user_id == current_user.id %}
+                        <a class="btn btn-blue btn-sm m-1" href="{{ url_for ('updateClient', client_id=client.id) }}">Update</a>
+                        <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">
+                            Delete
+                        </button>
+                    {% endif %}
+                </div>
+                </article>
+                <br>
+                <!-- Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="deleteLabel">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        Are you sure you want to delete?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <form method="POST" action="{{ url_for('deleteClient', client_id=client.id) }}">
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+    {% endif %}
     <h2>Add a new Client</h2> 
     <form method="POST" action="">
         {{ forms.hidden_tag() }}

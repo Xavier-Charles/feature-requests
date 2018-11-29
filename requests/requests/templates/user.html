@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if clients %}
+        <h2>All Clients</h2>
+            {% for client in clients %}
+                <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                    <a class="mr-2" href="#">logo here </a>
+                    <small class="text-muted">{{ client.date_added.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('update', client_id=client.id) }}">{{ client.name }}</a></h2>
+                    <p class="article-content">{{ client.location }}</p>
+                </div>
+                </article>
+            {% endfor %}
+    {% endif %}
+    <br>
+    {% if requests %}
+        <h2>Feature Requests</h2>
+        <hr>
+        {% for request in requests_ %}
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ request.client_priority }}</a>
+                    <small class="text-muted">Posted: {{ request.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted">Due: {{ request.target_date }}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('update', id=client.id) }}">{{ request.title }}</a></h2>
+                <p class="article-content">{{ request.description }}</p>
+                </div>
+            </article>
+        {% endfor %} 
+    {% else %}
+        <p>You have not added any feature requests</p>
+    {% endif %} 
+{% endblock content %}
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock %}         

@@ -1,62 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if requests_ %}
-    <h2>Feature Requests</h2>
-    <hr>
-    {% set number = 1 %}
-    {% for request in requests_ %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">Priority {{ request.client_priority }}</a>
-              <small class="text-muted">Posted: {{ request.date_posted.strftime('%Y-%m-%d') }}</small>&nbsp
-              <i class="fa fa-clock-o prefix mr-2"></i>
-              <small class="text-muted ml-3"><strong>Due</strong> {{ request.target_date }}</small>
-              <i class="fa fa-clock-o prefix mr-2"></i>
-            </div>
-            <h2><a class="article-title" href="#">{{ number }}: {{ request.title }}</a></h2>
-            <p class="article-content">{{ request.description }}</p>
-            {% if request.user_id == current_user.id %}
-              <a class="btn btn-blue btn-sm m-1" href="{{ url_for('updateRequest', request_id=request.id) }}">Update</a>
-              <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">
-                  Delete
-              </button>
-            {% endif %}
-          </div>
-          <!-- Modal -->
-          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="deleteLabel">Delete</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  Are you sure you want to delete?
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <form method="POST" action="{{ url_for('deleteRequest', request_id=request.id) }}">
-                    <input class="btn btn-danger" type="submit" value="Delete">
-                  </form>
-                </div>
-              </div>
-            </div>
-            </div>
-        </article>
-        {% set number= number + 1 %}
-    {% endfor %}
-
-  {% endif %}
-    <br>
-    <h2>Add a new Request</h2>
+    <h2>Update your Request</h2>
     <hr> 
     <form method="POST" action="" enctype="multipart/form-data">
         {{ forms.hidden_tag() }}
         <div class="md-form mx-4">
-            <i class="fa fa-minus prefix mr-2"></i>
+            <i class="fa fa-circle prefix mr-2"></i>
             <label for='{{ forms.title.label }}'>Title</label>
                 {% if forms.title.errors %}
                     {{ forms.title(class="form-control form-control-md is-invalid") }}
@@ -139,14 +88,11 @@
                 <div class="invalid-feedback">
                     {% for error in forms.files.errors %}
                         <span>{{ error }}</span>
-                        cd = m
                     {% endfor %}
                 </div>
             {% else %}
-                {{ forms.files( class="form-control-file", id="form-spacing") }}
+                {{ forms.files(id="form-spacing") }}
             {% endif %}
-            <br>
-            <p>File should be of any of these formats('jpg', 'png', 'txt', 'doc', 'docx', 'pdf')</p>
         </div>   
 
         <div class="text-center">
