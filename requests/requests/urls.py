@@ -6,12 +6,11 @@ from flask_login import login_user, login_required, current_user, logout_user, l
 from operator import attrgetter
 
 
-
 @app.route("/", methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        flash(f'You are logged in as {current_user.username}!', 'success')
-        return redirect(url_for('clients'))
+    # if current_user.is_authenticated:
+    #     flash(f'You are logged in as {current_user.username}!', 'success')
+    #     return redirect(url_for('clients'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -78,7 +77,7 @@ def requests(client_id):
         db.session.commit()
         flash(f'Your request has been added for {client.name}!', 'success')
         return redirect(url_for('clients'))
-    return render_template('requests.html', forms=form, requests_=request_list )
+    return render_template('requests.html', forms=form, requests_=request_list)
 
 @app.route("/update/client/<int:client_id>", methods=['GET', 'POST'])
 @login_required
